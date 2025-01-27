@@ -1,0 +1,46 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+</head>
+<body>
+    <h2>Employee Management System</h2>
+    <form action="insert.php" method="POST">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="phone" placeholder="Phone">
+        <input type="text" name="position" placeholder="Position">
+        <input type="number" name="salary" placeholder="Salary">
+        <button type="submit">Add Employee</button>
+    </form>
+    
+    <h3>Employee Records</h3>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Action</th>
+        </tr>
+        <?php
+        include 'config.php';
+        $result = mysqli_query($conn, "SELECT * FROM employees");
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<tr>
+                    <td>{$row['id']}</td>
+                    <td>{$row['name']}</td>
+                    <td>{$row['email']}</td>
+                    <td>{$row['phone']}</td>
+                    <td>{$row['position']}</td>
+                    <td>{$row['salary']}</td>
+                    <td><a href='delete.php?id={$row['id']}'>Delete</a></td>
+                  </tr>";
+        }
+        ?>
+    </table>
+</body>
+</html>
